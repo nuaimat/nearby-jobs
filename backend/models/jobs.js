@@ -11,9 +11,10 @@ var jobsSchema = new Schema({
     active: {type: Boolean, index: true},
     created: { type: Date, default: Date.now },
     updated: { type: Date, default: Date.now },
-    employees: [{ name: String, assigned: Date }],
-    selected_employee: String,
-    category: {type: String, index: true}
+    employees: [String],
+    assigned_to: {type: String,  default: null},
+    category: {type: String, index: true},
+    start_time: { type: Date}
 });
 
 jobsSchema.index({ location: "2d"});

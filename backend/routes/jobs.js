@@ -4,19 +4,39 @@ var Job = require('../models/jobs');
 var auth = require('../models/auth');
 
 
-// list last 10
+// list last 1000
 router.get('/', function(req, res) {
     //addSample();
 
     Job.find({active: true},{_id: false, __v: false})
         .sort({updated: -1})
-        .limit(10)
+        .limit(1000)
         .exec(function(err, jobs) {
             if (err) throw err;
             //console.log(jobs);
             res.status(200).json({data: jobs});
         });
 
+
+});
+
+// my tasks
+router.get('/my',auth, function(req, res) {
+    let userid = req.session.user;
+    Job.find({active: true, employees: userid, assigned: null},{_id: false, __v: false, employees: false})
+        .sort({start_time: -1})
+        .limit(100)
+        .exec(function(err, jobs) {
+            if (err) throw err;
+            //console.log(jobs);
+            let assigned = jobs.filter((j) => j.assigned_to == userid);
+            let pending = jobs.filter((j) => j.assigned_to == "" ||  j.assigned_to == null);
+            if(assigned.length > 0 || pending.length > 0) {
+                res.status(200).json({data: {assigned: assigned, pending: pending}, count: (assigned.length+pending.length)});
+            } else {
+                res.status(200).json({data: {assigned: assigned, pending: pending}, count: 0});
+            }
+        });
 
 });
 
