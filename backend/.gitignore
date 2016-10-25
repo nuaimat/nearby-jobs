@@ -1,0 +1,12 @@
+#NodeJS
+node_modules/*
+typings/*
+# IntelliJ Idea
+*.iml
+*.ipr
+*.iws
+.idea/
+# Windows
+Thumbs.db
+Desktop.ini
+dist/*
