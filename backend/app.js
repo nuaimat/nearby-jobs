@@ -22,10 +22,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
-
-
 var db_auth = `${config.db_username}:${config.db_password}@`;
 if(config.db_username == "" ){
     db_auth = "";
@@ -85,6 +81,11 @@ app.use(session({
   saveUninitialized: true
 }));
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // TODO Remove later, used to always login user even when node restarts due to file changes (nodemon)
 app.use((req, res, next) => {
@@ -94,7 +95,6 @@ app.use((req, res, next) => {
 
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 
 
@@ -131,6 +131,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;

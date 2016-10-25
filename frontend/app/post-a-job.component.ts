@@ -24,7 +24,7 @@ export class PostAJobComponent {
 
     onSubmit() {
 
-        var prom = this.jobService.getList();
+        var prom = this.jobService.create('test');
 
         console.log(prom);
 
