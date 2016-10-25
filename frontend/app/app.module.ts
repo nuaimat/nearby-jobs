@@ -6,10 +6,15 @@ import {RouterModule}   from '@angular/router';
 import {AppComponent}       from './app.component';
 import {MapComponent}       from './map.component';
 
+import { AgmCoreModule } from 'angular2-google-maps/core';
+
 @NgModule({
     imports: [
         BrowserModule,
         FormsModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyDjkDa4WA4I-2wRDBWB7kKVdFCeEON_H5A'
+        }),
         RouterModule.forRoot([
             {
                 path: 'map',
@@ -22,11 +27,8 @@ import {MapComponent}       from './map.component';
             },
         ])
     ],
-    declarations: [
-        AppComponent,
-        MapComponent
-    ],
     providers: [],
+    declarations: [AppComponent,MapComponent],
     bootstrap: [AppComponent]
 })
 
