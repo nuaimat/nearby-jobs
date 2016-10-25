@@ -95,8 +95,13 @@
                     <div class="form-group">
                         <label>Location</label>
 
-                        <sebm-google-map [latitude]="lat" [longitude]="lng">
-                            <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
+                        <sebm-google-map [latitude]="theMarker.lat" [longitude]="theMarker.lng">
+
+                            <sebm-google-map-marker [latitude]="theMarker.lat" [longitude]="theMarker.lng"
+                                                    [markerDraggable]="theMarker.draggable"
+                                                    (dragEnd)="markerDragEnd($event)">
+                            </sebm-google-map-marker>
+
                         </sebm-google-map>
 
                     </div>
@@ -110,4 +115,7 @@
 
 
     <button type="submit" class="btn btn-default">Submit</button>
+
+    <button type="button" class="btn btn-default" (click)="onTest()" > Test</button>
+
 </form>

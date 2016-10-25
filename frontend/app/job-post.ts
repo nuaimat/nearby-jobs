@@ -1,6 +1,3 @@
-/**
- * Created by TiTo on 10/25/2016.
- */
 export class JobPost {
     constructor(
         public id?: number,
@@ -9,5 +6,7 @@ export class JobPost {
         public description?: string,
         public startingDate?: Date,
         public endingDate?: Date,
+        public lat?: number,
+        public lng?: number
     ) {  }
 }

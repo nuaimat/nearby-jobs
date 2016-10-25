@@ -1,22 +1,58 @@
 import {Component} from '@angular/core';
 import {JobPost} from './job-post';
+import {JobsService} from './jobs.service';
+
 
 @Component({
     selector: 'post-a-job-component',
     templateUrl: 'views/post-a-job-component.html',
+    providers: [JobsService]
     //styleUrls: ['map.component.css'],
 })
 export class PostAJobComponent {
-    lat: number = 51.678418;
-    lng: number = 7.809007;
+
+    constructor(private jobService: JobsService) {
+    }
+
+    theMarker: marker = {
+        lat: 51.678418,
+        lng: 7.809007,
+        draggable: true
+    };
 
     post = new JobPost();
 
-    onSubmit(): void{
+    onSubmit() {
 
-        console.log(this.post);
+        var prom = this.jobService.getList();
 
-        console.log('asd');
+        console.log(prom);
+
+        return false;
     }
 
+    onTest() {
+
+        var prom = this.jobService.getList();
+
+        console.log(prom);
+
+        return false;
+    }
+
+    markerDragEnd($event): void {
+        this.post.lat = $event.coords.lat;
+        this.post.lng = $event.coords.lng;
+
+        console.log($event,this.post);
+
+    }
+
+}
+
+interface marker {
+    lat: number;
+    lng: number;
+    label?: string;
+    draggable: boolean;
 }
