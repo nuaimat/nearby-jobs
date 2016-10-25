@@ -1,0 +1,12 @@
+{
+  "gmapskey": "AIzaSyBQ-ZlbNUSV8ABwO1Httk1eaCacf489fFk",
+  "db_hostname": "127.0.0.1",
+  "db_port": "27017",
+  "db_username": "",
+  "db_password": "",
+  "db_name": "test",
+  "job_categories": ["accounting", "transporation", "gardening", "crafting", "plummery", "art",
+    "building", "computer maintenance", "computer networks", "bartender", "baby sitting", "nursery",
+    "help elders", "cleaning"
+  ]
+}
