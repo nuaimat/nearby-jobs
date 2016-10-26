@@ -1,5 +1,5 @@
 export class LanLon {
-    constructor(public lan:number,
+    constructor(public lat:number,
                 public lon:number) {
     }
 }
