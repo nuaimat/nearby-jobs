@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-md-12 text-center">
+        <h1>Welcome</h1>
+    </div>
+</div>
+
+<form (ngSubmit)="onSubmit()" novalidate *ngIf="active" #loginForm="ngForm" id="loginForm">
+
+    <div class="row">
+
+        <div class="col-md-offset-3 col-md-6">
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label for="txtUserName">User Name</label>
+                        <input type="text" id="txtUserName" name="txtUserName" class="form-control"
+                               [(ngModel)]="login.userName"
+                               #userName="ngModel"
+                               required>
+                    </div>
+
+                    <div [hidden]="userName.valid || userName.pristine" class="alert alert-danger">
+                        The field User Name is required
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label for="txtPassword">Password</label>
+                        <input type="password" id="txtPassword" name="txtPassword" class="form-control"
+                               [(ngModel)]="login.password"
+                               #txtPassword="ngModel"
+                               required>
+                    </div>
+
+                    <div [hidden]="txtPassword.valid || txtPassword.pristine" class="alert alert-danger">
+                        The field Password is required
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-default btn-primary btn-lg" [disabled]=" ! loginForm.form.valid">
+                    Login
+                </button>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</form>
