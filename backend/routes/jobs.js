@@ -72,6 +72,9 @@ router.post('/',auth,function(req, res) {
 //url: jobs/around?lat=41.0060455&lon=-91.9610144&category=*
 router.get('/around', function(req, res) {
     let currentLocation = [parseFloat(req.query.lon), parseFloat(req.query.lat)];
+    if(isNaN(currentLocation[0]) || isNaN(currentLocation[1])){
+        throw "Wrong coords";
+    }
     console.log("currentLocation: " + currentLocation);
 
     Job.find({active: true},{__v: false})
