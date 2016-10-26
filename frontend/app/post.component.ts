@@ -5,12 +5,12 @@ import {marker} from "./marker";
 
 
 @Component({
-    selector: 'post-a-job-component',
-    templateUrl: 'views/post-a-job-component.html',
+    selector: 'post-component',
+    templateUrl: 'views/post-component.html',
     providers: [JobsService]
     //styleUrls: ['map.component.css'],
 })
-export class PostAJobComponent {
+export class PostComponent {
 
     constructor(private jobService: JobsService) {
     }

@@ -5,8 +5,9 @@ import {RouterModule}   from '@angular/router';
 import {HttpModule}     from '@angular/http';
 
 import {AppComponent}       from './app.component';
-import {PostAJobComponent}  from './post-a-job.component';
+import {PostComponent}  from './post.component';
 import {FindComponent}      from "./find.component";
+import {AppliedComponent} from "./applied.component";
 
 import {AgmCoreModule} from 'angular2-google-maps/core';
 
@@ -21,11 +22,15 @@ import {AgmCoreModule} from 'angular2-google-maps/core';
         RouterModule.forRoot([
             {
                 path: 'post',
-                component: PostAJobComponent
+                component: PostComponent
             },
             {
                 path: 'find',
                 component: FindComponent
+            },
+            {
+                path: 'applied',
+                component: AppliedComponent
             },
             {
                 path: '',
@@ -35,7 +40,7 @@ import {AgmCoreModule} from 'angular2-google-maps/core';
         ])
     ],
     providers: [],
-    declarations: [AppComponent, PostAJobComponent, FindComponent],
+    declarations: [AppComponent, PostComponent, FindComponent, AppliedComponent],
     bootstrap: [AppComponent]
 })
 
