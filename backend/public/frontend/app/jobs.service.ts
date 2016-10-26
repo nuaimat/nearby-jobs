@@ -7,6 +7,7 @@ import {JobPost} from "./job-post";
 import {Job} from "./job";
 import {Observable} from "rxjs/Observable";
 
+
 @Injectable()
 export class JobsService {
 
@@ -67,6 +68,12 @@ export class JobsService {
             .put(`${this.endpointUrl}/apply/${id}`,{id: id})
             .toPromise();
         return true;
+    }
+
+    getCategoriesList(): string[] {
+        return ["accounting", "transporation", "gardening", "crafting", "plummery", "art",
+    "building", "computer maintenance", "computer networks", "bartender", "baby sitting", "nursery",
+    "help elders", "cleaning"]
     }
 
 }

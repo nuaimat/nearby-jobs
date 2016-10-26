@@ -17,8 +17,8 @@ export class PostComponent implements OnInit {
     }
 
     active = true;
-
     post = new JobPost();
+    jobCategories;
 
     theMarker: marker = {
         lat: 41.00641495699017,
@@ -30,6 +30,7 @@ export class PostComponent implements OnInit {
     zoom: number = 15;
 
     ngOnInit(): void {
+        this.jobCategories = this.jobService.getCategoriesList();
 
         var self = this;
 

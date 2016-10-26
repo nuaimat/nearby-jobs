@@ -16,9 +16,7 @@
                                 #selCategory="ngModel"
                                 required>
                             <option value=""></option>
-                            <option value="CAT1">Category 1</option>
-                            <option value="CAT2">Category 2</option>
-                            <option value="CAT3">Category 3</option>
+                            <option *ngFor="let jc of jobCategories" [value]="jc">{{jc}}</option>
                         </select>
                     </div>
 
