@@ -1,7 +1,20 @@
 <h1>Applied Jobs</h1>
-
 <div class="row">
     <div class="col-md-12">
-        Here the list of jobs
+        <ul>
+            <li *ngFor="let m of appliedJobs | async | matchfilter:cancelledIds; let i = index" class="applied_job">
+                            <strong style="text-transform: capitalize;">{{m.title}}</strong> <br/>
+                            <div><strong>Category: </strong>{{m.category}}</div>
+                            <div><strong>Employer: </strong>{{m.employer}}</div>
+                            <div><strong>Start Date: </strong>{{m.start_datetime | date:"MM/dd/yy"}}</div>
+                            <div><strong>End Date: </strong>{{m.end_datetime | date:"MM/dd/yy"}}</div>
+                            <div><strong>Description: </strong>{{m.description}}</div>
+                            <div *ngIf="m.assigned_to"><strong>Assignee: </strong>{{m.assigned_to}}</div>
+                            <div><strong>Status: </strong>{{getJobStatus(m)}}</div>
+                            <div><button class="btn btn-default" (click)="cancelJobApplication(m._id)" >Cancel Applcation</button></div>
+                            
+            </li>
+            <li *ngIf="(appliedJobs | async | matchfilter:cancelledIds)?.length==0">No Job applications yet</li>
+        </ul>
     </div>
 </div>

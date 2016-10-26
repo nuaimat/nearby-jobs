@@ -7,7 +7,8 @@ import { Job } from './Job';
 })
 export class MatchFilterPipe implements PipeTransform {
     transform(items: Job[], args: string[]): any {
-        if(items == null || items.length == 0){
+        //console.log("items: " + JSON.stringify(items));
+        if(items == null || items.length == 0 || items.constructor != Array ){
             return [];
         }
         

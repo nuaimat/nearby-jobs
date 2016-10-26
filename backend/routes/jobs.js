@@ -23,18 +23,21 @@ router.get('/', function(req, res) {
 // tasks i applied to
 router.get('/my',auth, function(req, res) {
     let userid = req.session.user;
-    Job.find({active: true, applicants: userid, assigned: null},{_id: false, __v: false, applicants: false})
-        .sort({start_time: -1})
+    Job.find(
+            {active: true, applicants: userid, assigned: null, start_datetime: {$gt: new Date() } },
+            {__v: false, applicants: false}
+        )
+        .sort({start_datetime: -1})
         .limit(100)
         .exec(function(err, jobs) {
             if (err) throw err;
             //console.log(jobs);
-            let assigned = jobs.filter((j) => j.assigned_to == userid);
-            let pending = jobs.filter((j) => j.assigned_to == "" ||  j.assigned_to == null);
-            if(assigned.length > 0 || pending.length > 0) {
-                res.status(200).json({data: {assigned: assigned, pending: pending}, count: (assigned.length+pending.length)});
+            //let assigned = jobs.filter((j) => j.assigned_to == userid);
+            //let pending = jobs.filter((j) => j.assigned_to == "" ||  j.assigned_to == null);
+            if(jobs.length > 0) {
+                res.status(200).json({data: jobs, count: (jobs.length)});
             } else {
-                res.status(200).json({data: {assigned: assigned, pending: pending}, count: 0});
+                res.status(200).json({data: {}, count: 0});
             }
         });
 
@@ -101,6 +104,17 @@ router.delete('/:id/',auth,function(req, res) {
     let id = req.params.id;
     Job.findByIdAndRemove(id, function(err) {
         if (err) throw err;
+        res.status(201).json({data: {"id": req.params.id}});
+    });
+});
+
+// remove job applicantion
+router.delete('/unapply/:id/',auth,function(req, res) {
+    let id = req.params.id;
+    let userid = req.session.user;
+    console.log("unapplying at id : " + id  + ' for user ' + userid);
+    Job.findOneAndUpdate({_id: id},  {$pull: {applicants: userid}} , {upsert: true}, function(err,job) {
+        if (err) {console.log(err); throw err;}
         res.status(201).json({data: {"id": req.params.id}});
     });
 });

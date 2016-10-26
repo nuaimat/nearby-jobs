@@ -62,8 +62,13 @@ export class JobsService {
             .map((r:Response)=>r.json().data as Job[]);
     }
 
+    getMyAppliedJobs(): Observable<Job[]>{
+        return this.http
+            .get(`${this.endpointUrl}/my/`)
+            .map((r:Response)=>r.json().data as Job[]);
+    }
+
     applyForJob(id): boolean{
-        console.log("Serivce applying at " + `${this.endpointUrl}/apply/${id}`);
         this.http
             .put(`${this.endpointUrl}/apply/${id}`,{id: id})
             .toPromise();
@@ -74,6 +79,13 @@ export class JobsService {
         return ["accounting", "transporation", "gardening", "crafting", "plummery", "art",
     "building", "computer maintenance", "computer networks", "bartender", "baby sitting", "nursery",
     "help elders", "cleaning"]
+    }
+
+    cancelJobApplication(id): boolean {
+        this.http
+            .delete(`${this.endpointUrl}/unapply/${id}`)
+            .toPromise();
+        return true;
     }
 
 }
