@@ -102,21 +102,22 @@ router.delete('/:id/',auth,function(req, res) {
 
 
 // de activate a job
-router.put('/:id',auth,function(req, res) {
+/* router.put('/:id',auth,function(req, res) {
     let id = req.params.id;
     Job.findOneAndUpdate({id: id}, {active: false}, function(err,job) {
         if (err) throw err;
         res.status(201).json({data: {"id": req.params.id}});
     });
-});
+}); */
 
 
 // update add to employees
-router.put('/:id/:userid',auth,function(req, res) {
+router.put('/apply/:id',auth,function(req, res) {
+    
     let id = req.params.id;
     let userid = req.session.user;
-
-    Job.findOneAndUpdate({id: id},  {$addToSet: {employees: userid}} , {upsert:true}, function(err,job) {
+    console.log(`applying for job _id: ${id} for: ${userid}`);
+    Job.findOneAndUpdate({_id: id},  {$addToSet: {employees: userid}} , {upsert:true}, function(err,job) {
         if (err) throw err;
         res.status(201).json({data: {"id": req.params.id}});
     });

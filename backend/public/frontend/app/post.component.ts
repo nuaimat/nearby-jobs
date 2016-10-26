@@ -14,7 +14,7 @@ import {GeolocationService} from "./geolocation.service";
 })
 export class PostComponent implements OnInit {
 
-    constructor(private jobService: JobsService) {
+    constructor(private jobService: JobsService,  private geo: GeolocationService) {
     }
 
     theMarker: marker = {

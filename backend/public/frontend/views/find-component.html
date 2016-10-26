@@ -1,5 +1,5 @@
 <h1>Find a Job</h1>
-
+{{jobs | async | json}}
 <div class="row">
     <div class="col-md-12">
 
@@ -11,22 +11,8 @@
                     [zoom]="zoom"
                     [disableDefaultUI]="false"
                     [zoomControl]="false"
-                    (mapClick)="mapClicked($event)">
+                    (centerChange)="refreshJobs($event)">
 
-                <sebm-google-map-marker
-                        *ngFor="let m of markers; let i = index"
-                        (markerClick)="clickedMarker(m.label, i)"
-                        [latitude]="m.lat"
-                        [longitude]="m.lng"
-                        [label]="m.label"
-                        [markerDraggable]="m.draggable"
-                        (dragEnd)="markerDragEnd(m, $event)">
-
-                    <sebm-google-map-info-window>
-                        <strong>InfoWindow content</strong>
-                    </sebm-google-map-info-window>
-
-                </sebm-google-map-marker>
                 <sebm-google-map-marker
                         *ngFor="let m of jobs | async; let i = index"
                         [latitude]="m.location[1]"
@@ -35,8 +21,13 @@
                       >
 
                     <sebm-google-map-info-window>
-                        <strong>{{m.title}}</strong> <br/>
-                        <input type="button" value="Apply" />
+                        <form method="post" enctype="application/x-www-form-urlencoded">
+                            <strong>{{m.title}}</strong> <br/>
+                            <div><strong>Category: </strong>{{m.category}}</div>
+                            <div><strong>Employer: </strong>{{m.employer}}</div> <br/>
+                            <input type="hidden" name="id" [value]="m._id" />
+                            <input type="button" value="Apply" (click)="applyForJob(m._id)" />
+                        </form>
                     </sebm-google-map-info-window>
 
                 </sebm-google-map-marker>

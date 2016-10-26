@@ -5,6 +5,7 @@ import './rxjs-operators';
 
 import {JobPost} from "./job-post";
 import {Job} from "./job";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class JobsService {
@@ -54,10 +55,18 @@ export class JobsService {
         return Promise.reject(errMsg);
     }
 
-    getNearby(c:LanLon): Observable<Job[]>{
+    getNearby(lat, lng): Observable<Job[]>{
         return this.http
-            .get(`http://localhost:8080/jobs/around/?lat=${c.latitude}&lon=${c.longitude}`)
+            .get(`${this.endpointUrl}/around/?lat=${lat}&lon=${lng}`)
             .map((r:Response)=>r.json().data as Job[]);
+    }
+
+    applyForJob(id): boolean{
+        console.log("Serivce applying at " + `${this.endpointUrl}/apply/${id}`);
+        this.http
+            .put(`${this.endpointUrl}/apply/${id}`,{id: id})
+            .toPromise();
+        return true;
     }
 
 }

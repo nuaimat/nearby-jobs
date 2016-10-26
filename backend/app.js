@@ -13,6 +13,7 @@ var frontend = require('./routes/frontend');
 var mongoose = require('mongoose');
 var Promise = require('promise');
 var session = require('express-session');
+var cors = require('cors');
 
 var app = express();
 
@@ -94,6 +95,11 @@ app.use((req, res, next) => {
 });
 
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
+
+app.get('/frontend/find', (req, res) => { res.redirect('/frontend'); });
+app.get('/frontend/applied', (req, res) => { res.redirect('/frontend'); });
+app.get('/frontend/post', (req, res) => { res.redirect('/frontend'); });
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 
@@ -101,7 +107,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/jobs', jobs);
-app.use('/frontend', frontend);
+app.use('/frontend2', frontend);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
