@@ -53,7 +53,14 @@ import {AgmCoreModule} from 'angular2-google-maps/core';
         ])
     ],
     providers: [],
-    declarations: [AppComponent, PostComponent, FindComponent, AppliedComponent, LoginComponent, LogoutComponent],
+    declarations: [
+        AppComponent, 
+        PostComponent, 
+        FindComponent, 
+        AppliedComponent, 
+        LoginComponent, 
+        LogoutComponent,
+        MatchFilterPipe],
     bootstrap: [AppComponent]
 })
 
