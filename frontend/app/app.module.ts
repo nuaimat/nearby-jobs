@@ -5,8 +5,8 @@ import {RouterModule}   from '@angular/router';
 import {HttpModule}     from '@angular/http';
 
 import {AppComponent}       from './app.component';
-import {PostAJobComponent}       from './post-a-job.component';
-import {MapComponent}       from './map.component';
+import {PostAJobComponent}  from './post-a-job.component';
+import {FindComponent}      from "./find.component";
 
 import {AgmCoreModule} from 'angular2-google-maps/core';
 
@@ -24,8 +24,8 @@ import {AgmCoreModule} from 'angular2-google-maps/core';
                 component: PostAJobComponent
             },
             {
-                path: 'map',
-                component: MapComponent
+                path: 'find',
+                component: FindComponent
             },
             {
                 path: '',
@@ -35,7 +35,7 @@ import {AgmCoreModule} from 'angular2-google-maps/core';
         ])
     ],
     providers: [],
-    declarations: [AppComponent, MapComponent, PostAJobComponent],
+    declarations: [AppComponent, PostAJobComponent, FindComponent],
     bootstrap: [AppComponent]
 })
 

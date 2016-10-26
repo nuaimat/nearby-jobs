@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {JobPost} from './job-post';
 import {JobsService} from './jobs.service';
+import {marker} from "./marker";
 
 
 @Component({
@@ -48,11 +49,4 @@ export class PostAJobComponent {
 
     }
 
-}
-
-interface marker {
-    lat: number;
-    lng: number;
-    label?: string;
-    draggable: boolean;
 }
