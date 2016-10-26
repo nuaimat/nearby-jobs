@@ -13,8 +13,10 @@ import {GeolocationService} from "./geolocation.service";
 
 export class PostComponent implements OnInit {
 
-    constructor(private jobService: JobsService,  private geo: GeolocationService) {
+    constructor(private jobService: JobsService, private geo: GeolocationService) {
     }
+
+    active = true;
 
     post = new JobPost();
 
@@ -32,17 +34,17 @@ export class PostComponent implements OnInit {
         var self = this;
 
         this.geo.getLocation().subscribe(
-            function(position) {
+            function (position) {
                 self.setPosition(position);
             },
-            function(error) {
+            function (error) {
                 console.log(error);
             }
         );
 
     }
 
-    setPosition(position){
+    setPosition(position) {
 
         this.theMarker.lat = position.coords.latitude;
         this.theMarker.lng = position.coords.longitude;
@@ -52,35 +54,25 @@ export class PostComponent implements OnInit {
 
     }
 
-
-
-    onSubmit() {
-
-        console.log(this.post);
-
-        var prom = this.jobService.create( this.post );
-
-        console.log(prom);
-
-        return false;
-    }
-
-    onTest() {
-
-        var prom = this.jobService.getList();
-
-        console.log(prom);
-
-        return false;
-    }
-
     markerDragEnd(position): void {
         this.post.lat = position.coords.lat;
         this.post.lng = position.coords.lng;
         console.log(this.post);
     }
 
+    onSubmit() {
 
+        this.active = false;
 
+        var prom = this.jobService.create(this.post);
+
+        prom.then(data => {
+            console.log(data)
+            this.post = new JobPost();
+        });
+
+        setTimeout(() => this.active = true, 20);
+
+    }
 
 }
