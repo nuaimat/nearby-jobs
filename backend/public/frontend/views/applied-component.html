@@ -1,5 +1,6 @@
-<h1>Applied Jobs</h1>
+<h1>My Jobs</h1>
 <div class="row">
+    <label class="row">Jobs I Applied to</label>
     <div class="col-md-12">
         <ul>
             <li *ngFor="let m of appliedJobs | async | matchfilter:cancelledIds; let i = index" class="applied_job">
@@ -15,6 +16,30 @@
                             
             </li>
             <li *ngIf="(appliedJobs | async | matchfilter:cancelledIds)?.length==0">No Job applications yet</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <label class="row">Jobs I posted</label>
+    <div class="col-md-12">
+        <ul>
+            <li *ngFor="let m of postedJobs | async | matchfilter:cancelledIds; let i = index" class="applied_job">
+                            <strong style="text-transform: capitalize;">{{m.title}}</strong> <br/>
+                            <div><strong>Category: </strong>{{m.category}}</div>
+                            <div><strong>Employer: </strong>{{m.employer}}</div>
+                            <div><strong>Start Date: </strong>{{m.start_datetime | date:"MM/dd/yy"}}</div>
+                            <div><strong>End Date: </strong>{{m.end_datetime | date:"MM/dd/yy"}}</div>
+                            <div><strong>Description: </strong>{{m.description}}</div>
+                            <div *ngIf="m.assigned_to"><strong>Assignee: </strong>{{m.assigned_to}}</div>
+                            <div><strong>Status: </strong>{{getJobStatus(m)}}</div>
+                            <div><select #applicants>
+                                <option value="Unassigned">Unassigned</option>
+                                <option *ngFor="let a of m.applicants">{{a}}</option>
+                                </select>&nbsp;<button class="btn btn-default" (click)="assignJobApplication(m._id,applicants.value)" >Assign</button></div>
+                            
+            </li>
+            <li *ngIf="(postedJobs | async | matchfilter:cancelledIds)?.length==0">No Job applications yet</li>
         </ul>
     </div>
 </div>

@@ -43,6 +43,43 @@ router.get('/my',auth, function(req, res) {
 
 });
 
+
+// jobs i posted
+router.get('/my/posted',auth, function(req, res) {
+    let userid = req.session.user;
+    Job.find(
+            {active: true, employer: userid, assigned: null, start_datetime: {$gt: new Date() } },
+            {__v: false}
+        )
+        .sort({start_datetime: -1})
+        .limit(100)
+        .exec(function(err, jobs) {
+            if (err) throw err;
+            //console.log(jobs);
+            //let assigned = jobs.filter((j) => j.assigned_to == userid);
+            //let pending = jobs.filter((j) => j.assigned_to == "" ||  j.assigned_to == null);
+            if(jobs.length > 0) {
+                res.status(200).json({data: jobs, count: (jobs.length)});
+            } else {
+                res.status(200).json({data: {}, count: 0});
+            }
+        });
+
+});
+
+
+router.put('/assign/:id/:emp',auth,function(req, res) {
+    
+    let id = req.params.id;
+    let emp = req.params.emp;
+    let userid = req.session.user;
+    // get sure this job belongs to me
+    console.log(`applying for job _id: ${id} for: ${userid}`);
+    Job.findOneAndUpdate({_id: id, employer: userid},  {assigned_to: emp} , function(err,job) {
+        if (err) throw err;
+        res.status(201).json({data: {"id": req.params.id}});
+    });
+});
 // add new job
 router.post('/',auth,function(req, res) {
     console.log(req.body);
