@@ -1,15 +1,16 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {JobsService} from './jobs.service';
+import {GeolocationService} from "./geolocation.service";
 import {marker} from "./marker";
 
 @Component({
     selector: 'find-component',
     templateUrl: 'views/find-component.html',
-    providers: [JobsService]
+    providers: [JobsService,GeolocationService]
 })
-export class FindComponent {
+export class FindComponent implements OnInit  {
 
-    constructor(private jobService: JobsService) {
+    constructor(private jobService: JobsService, private geo: GeolocationService) {
     }
 
     // google maps zoom level
@@ -39,6 +40,26 @@ export class FindComponent {
             draggable: true
         }
     ];
+
+    setPosition(position){
+        this.lat = position.coords.latitude;
+        this.lng = position.coords.longitude;
+    }
+
+    ngOnInit(): void {
+
+        var self = this;
+
+        this.geo.getLocation().subscribe(
+            function(position) {
+                self.setPosition(position);
+            },
+            function(error) {
+                console.log(error);
+            }
+        );
+
+    }
 
     onTest() {
 
