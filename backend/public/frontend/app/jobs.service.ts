@@ -87,22 +87,16 @@ export class JobsService {
     "help elders", "cleaning"]
     }
 
-    cancelJobApplication(id): boolean {
-        this.http
-            .delete(`${this.endpointUrl}/unapply/${id}`)
-            .toPromise();
-        return true;
+    cancelJobApplication(id): Observable<Response> {
+        return this.http
+            .delete(`${this.endpointUrl}/unapply/${id}`);
     }
 
-    assignJobApplication(id:string, emp: string): boolean {
-        try {
-        this.http
-            .put(`${this.endpointUrl}/assign/${id}/${emp}`,{})
-            .toPromise();
-        }catch(err){
-            this.handleError(err);
-        }
-        return true;
+    assignJobApplication(id:string, emp: string): Observable<Response> {
+
+        return this.http
+            .put(`${this.endpointUrl}/assign/${id}/${emp}`,{});
+      
     }
 
 }

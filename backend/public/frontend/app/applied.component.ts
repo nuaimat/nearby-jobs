@@ -19,7 +19,7 @@ export class AppliedComponent implements OnInit {
     appliedJobs: Observable<Job[]>;
     postedJobs: Observable<Job[]>;
 
-    ngOnInit(): void {
+    private refreshDataSources  (): void {
         var self = this;
         this.appliedJobs = self.jobService.getMyAppliedJobs()
             .catch(error=>{
@@ -31,6 +31,10 @@ export class AppliedComponent implements OnInit {
                 console.log(error);
                 return Observable.of<Job[]>([]);
             });
+    }
+    ngOnInit(): void {
+        var self = this;
+        this.refreshDataSources();
     }
 
     getJobStatus(j:Job): string{
@@ -45,8 +49,13 @@ export class AppliedComponent implements OnInit {
 
     cancelledIds : string[] = [];
     cancelJobApplication(id:string): void {
-        this.jobService.cancelJobApplication(id);
-        this.cancelledIds.push(id);
+        this.jobService.cancelJobApplication(id)
+            .toPromise()
+            .then(() => {
+                    this.cancelledIds.push(id);
+                    this.refreshDataSources();
+            });
+        
     }
 
     assignJobApplication(id: string, employee: string): void {
@@ -54,6 +63,11 @@ export class AppliedComponent implements OnInit {
             employee = null;
         }
         console.log("assigning to employee : " + employee + " id: " + id);
-         this.jobService.assignJobApplication(id, employee);
+        this.jobService.assignJobApplication(id, employee)
+            .toPromise().then( () => {
+                this.refreshDataSources();
+            }
+            );
+        
     }
 }

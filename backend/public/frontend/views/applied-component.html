@@ -10,7 +10,7 @@
                             <div><strong>Start Date: </strong>{{m.start_datetime | date:"MM/dd/yy"}}</div>
                             <div><strong>End Date: </strong>{{m.end_datetime | date:"MM/dd/yy"}}</div>
                             <div><strong>Description: </strong>{{m.description}}</div>
-                            <div *ngIf="m.assigned_to"><strong>Assignee: </strong>{{m.assigned_to}}</div>
+                            <div *ngIf="m.assigned_to"><strong>Assignee: </strong><span style="color: green">{{m.assigned_to}}</span></div>
                             <div><strong>Status: </strong>{{getJobStatus(m)}}</div>
                             <div><button class="btn btn-default" (click)="cancelJobApplication(m._id)" >Cancel Applcation</button></div>
                             
@@ -31,12 +31,12 @@
                             <div><strong>Start Date: </strong>{{m.start_datetime | date:"MM/dd/yy"}}</div>
                             <div><strong>End Date: </strong>{{m.end_datetime | date:"MM/dd/yy"}}</div>
                             <div><strong>Description: </strong>{{m.description}}</div>
-                            <div *ngIf="m.assigned_to"><strong>Assignee: </strong>{{m.assigned_to}}</div>
+                            <div *ngIf="m.assigned_to != null"><strong>Assignee: </strong><span style="color: green">{{m.assigned_to}}</span></div>
                             <div><strong>Status: </strong>{{getJobStatus(m)}}</div>
                             <div><select #applicants>
-                                <option value="Unassigned">Unassigned</option>
-                                <option *ngFor="let a of m.applicants">{{a}}</option>
-                                </select>&nbsp;<button class="btn btn-default" (click)="assignJobApplication(m._id,applicants.value)" >Assign</button></div>
+                                <option value="Unassigned" >Unassigned</option>
+                                <option *ngFor="let a of m.applicants" [selected]="a == m.assigned_to">{{a}}</option>
+                                </select>&nbsp;<button class="btn btn-default" (click)="assignJobApplication(m._id,applicants.value);m.assigned_to = applicants.value=='Unassigned'?null:applicants.value " >Assign</button></div>
                             
             </li>
             <li *ngIf="(postedJobs | async | matchfilter:cancelledIds)?.length==0">No Job applications yet</li>

@@ -73,6 +73,11 @@ router.put('/assign/:id/:emp',auth,function(req, res) {
     let id = req.params.id;
     let emp = req.params.emp;
     let userid = req.session.user;
+
+    if(emp == "null"){
+        emp = null;
+    }
+
     // get sure this job belongs to me
     console.log(`applying for job _id: ${id} for: ${userid}`);
     Job.findOneAndUpdate({_id: id, employer: userid},  {assigned_to: emp} , function(err,job) {
