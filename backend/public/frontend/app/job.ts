@@ -11,7 +11,7 @@ export class Job {
         public active: boolean,
         public created: Date,
         public updated: Date,
-        public employees: Array<String>,
+        public applicants: Array<String>,
         public assigned_to: string,
         public category: string,
         public start_time: Date
