@@ -5,7 +5,6 @@
 
         <div class="form-group">
             <label>Location</label>
-
             <sebm-google-map
                     [latitude]="lat"
                     [longitude]="lng"
@@ -28,13 +27,25 @@
                     </sebm-google-map-info-window>
 
                 </sebm-google-map-marker>
+                <sebm-google-map-marker
+                        *ngFor="let m of jobs | async; let i = index"
+                        [latitude]="m.location[1]"
+                        [longitude]="m.location[0]"
+                        [label]="m.title"
+                      >
 
-                <sebm-google-map-circle [latitude]="lat + 0.3" [longitude]="lng"
-                                        [radius]="5000"
-                                        [fillColor]="'red'"
-                                        [circleDraggable]="true"
-                                        [editable]="true">
-                </sebm-google-map-circle>
+                    <sebm-google-map-info-window>
+                        <strong>{{m.title}}</strong> <br/>
+                        <input type="button" value="Apply" />
+                    </sebm-google-map-info-window>
+
+                </sebm-google-map-marker>
+
+                <sebm-google-map-marker [latitude]="lat" [longitude]="lng" title="Central point">
+                    <sebm-google-map-info-window [disableAutoPan]="true">
+                        Your Approximiate location
+                    </sebm-google-map-info-window>
+                </sebm-google-map-marker>
 
             </sebm-google-map>
 

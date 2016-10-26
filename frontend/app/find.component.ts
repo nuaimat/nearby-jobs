@@ -14,11 +14,11 @@ export class FindComponent implements OnInit  {
     }
 
     // google maps zoom level
-    zoom: number = 8;
+    zoom: number = 18;
 
     // initial center position for the map
-    lat: number = 51.673858;
-    lng: number = 7.815982;
+    lat: number = -91.96061968803406;
+    lng: number = 41.00641495699017;
 
     markers: marker[] = [
         {
@@ -41,6 +41,8 @@ export class FindComponent implements OnInit  {
         }
     ];
 
+    jobs: Observable<Job[]>;
+
     setPosition(position){
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
@@ -53,6 +55,7 @@ export class FindComponent implements OnInit  {
         this.geo.getLocation().subscribe(
             function(position) {
                 self.setPosition(position);
+                self.jobs = self.jobService.getNearby(position.coords);
             },
             function(error) {
                 console.log(error);

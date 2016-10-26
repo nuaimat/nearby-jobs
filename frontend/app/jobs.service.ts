@@ -4,6 +4,7 @@ import {Http, Headers, RequestOptions, Response} from "@angular/http";
 import './rxjs-operators';
 
 import {JobPost} from "./job-post";
+import {Job} from "./job";
 
 @Injectable()
 export class JobsService {
@@ -51,6 +52,12 @@ export class JobsService {
         }
         console.error(errMsg);
         return Promise.reject(errMsg);
+    }
+
+    getNearby(c:LanLon): Observable<Job[]>{
+        return this.http
+            .get(`http://localhost:8080/jobs/around/?lat=${c.latitude}&lon=${c.longitude}`)
+            .map((r:Response)=>r.json().data as Job[]);
     }
 
 }
