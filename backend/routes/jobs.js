@@ -20,10 +20,10 @@ router.get('/', function(req, res) {
 
 });
 
-// my tasks
+// tasks i applied to
 router.get('/my',auth, function(req, res) {
     let userid = req.session.user;
-    Job.find({active: true, employees: userid, assigned: null},{_id: false, __v: false, employees: false})
+    Job.find({active: true, applicants: userid, assigned: null},{_id: false, __v: false, applicants: false})
         .sort({start_time: -1})
         .limit(100)
         .exec(function(err, jobs) {
@@ -49,7 +49,7 @@ router.post('/',auth,function(req, res) {
         description: req.body.description,
         location:   [parseFloat(req.body.lng), parseFloat(req.body.lat)],
         active: true,
-        employees: [],
+        applicants: [],
         category: req.body.category,
         employer: "Mr. Robot",
         start_datetime: req.body.startingDate,
@@ -116,13 +116,13 @@ router.delete('/:id/',auth,function(req, res) {
 }); */
 
 
-// update add to employees
+// update add to applicants
 router.put('/apply/:id',auth,function(req, res) {
     
     let id = req.params.id;
     let userid = req.session.user;
     console.log(`applying for job _id: ${id} for: ${userid}`);
-    Job.findOneAndUpdate({_id: id},  {$addToSet: {employees: userid}} , {upsert:true}, function(err,job) {
+    Job.findOneAndUpdate({_id: id},  {$addToSet: {applicants: userid}} , {upsert:true}, function(err,job) {
         if (err) throw err;
         res.status(201).json({data: {"id": req.params.id}});
     });
@@ -135,7 +135,7 @@ var addSample = function(){
         employer: "Mr. Robot",
         location:   [-91.96160137653351, 41.005961558865245],
         active: true,
-        employees: [],
+        applicants: [],
         category: "computer networks"
     });
 
