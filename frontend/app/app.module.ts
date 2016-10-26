@@ -7,7 +7,6 @@ import {HttpModule}     from '@angular/http';
 import {AppComponent}       from './app.component';
 import {PostComponent}  from './post.component';
 import {FindComponent}      from "./find.component";
-import {MapComponent}       from './map.component';
 import {AppliedComponent} from './applied.component';
 
 
@@ -36,7 +35,7 @@ import {AgmCoreModule} from 'angular2-google-maps/core';
             },
             {
                 path: '',
-                redirectTo: '/map',
+                redirectTo: '/find',
                 pathMatch: 'full'
             },
         ])
