@@ -99,6 +99,8 @@ app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.get('/frontend/find', (req, res) => { res.redirect('/frontend'); });
 app.get('/frontend/applied', (req, res) => { res.redirect('/frontend'); });
 app.get('/frontend/post', (req, res) => { res.redirect('/frontend'); });
+app.get('/frontend/login', (req, res) => { res.redirect('/frontend'); });
+app.get('/frontend/logout', (req, res) => { res.redirect('/frontend'); });
 
 app.use(express.static(path.join(__dirname, 'public')));
 

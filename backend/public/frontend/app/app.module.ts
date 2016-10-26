@@ -4,6 +4,9 @@ import {FormsModule}    from '@angular/forms';
 import {RouterModule}   from '@angular/router';
 import {HttpModule}     from '@angular/http';
 
+
+import {LoginComponent}       from './login.component';
+import {LogoutComponent} from "./logout.component";
 import {AppComponent}       from './app.component';
 import {PostComponent}  from './post.component';
 import {FindComponent}      from "./find.component";
@@ -22,6 +25,14 @@ import {AgmCoreModule} from 'angular2-google-maps/core';
             apiKey: 'AIzaSyDjkDa4WA4I-2wRDBWB7kKVdFCeEON_H5A'
         }),
         RouterModule.forRoot([
+            {
+                path: 'login',
+                component: LoginComponent
+            },
+            {
+                path: 'logout',
+                component: LogoutComponent
+            },
             {
                 path: 'post',
                 component: PostComponent
@@ -42,7 +53,7 @@ import {AgmCoreModule} from 'angular2-google-maps/core';
         ])
     ],
     providers: [],
-    declarations: [AppComponent, PostComponent, FindComponent, AppliedComponent, MatchFilterPipe],
+    declarations: [AppComponent, PostComponent, FindComponent, AppliedComponent, LoginComponent, LogoutComponent],
     bootstrap: [AppComponent]
 })
 
