@@ -1,3 +1,16 @@
 .sebm-google-map-container {
     height: 90%;
 }
+
+.ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+    border-left: 5px solid #a94442; /* red */
+}
+
+#postForm button {
+    padding-left: 50px;
+    padding-right: 50px;
+}

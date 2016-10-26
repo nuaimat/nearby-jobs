@@ -1,7 +1,6 @@
 <h1>Post a Job</h1>
 
-
-<form (ngSubmit)="onSubmit()" #productForm="ngForm">
+<form (ngSubmit)="onSubmit()" novalidate *ngIf="active" #postForm="ngForm" id="postForm" >
 
     <div class="row">
 
@@ -12,13 +11,19 @@
 
                     <div class="form-group">
                         <label for="selCategory">Category</label>
-                        <select id="selCategory" name="selCategory"
-                                class="form-control" [(ngModel)]="post.category" required>
+                        <select id="selCategory" name="selCategory" class="form-control"
+                                [(ngModel)]="post.category"
+                                #selCategory="ngModel"
+                                required>
                             <option value=""></option>
                             <option value="CAT1">Category 1</option>
                             <option value="CAT2">Category 2</option>
                             <option value="CAT3">Category 3</option>
                         </select>
+                    </div>
+
+                    <div [hidden]="selCategory.valid || selCategory.pristine" class="alert alert-danger">
+                        Category is required
                     </div>
 
                 </div>
@@ -29,8 +34,14 @@
 
                     <div class="form-group">
                         <label for="txtTitle">Title</label>
-                        <input type="text" id="txtTitle" name="txtTitle"
-                               class="form-control" [(ngModel)]="post.title" required>
+                        <input type="text" id="txtTitle" name="txtTitle" class="form-control"
+                               [(ngModel)]="post.title"
+                               #txtTitle="ngModel"
+                               required>
+                    </div>
+
+                    <div [hidden]="txtTitle.valid || txtTitle.pristine" class="alert alert-danger">
+                        Title is required
                     </div>
 
                 </div>
@@ -41,8 +52,14 @@
 
                     <div class="form-group">
                         <label for="txaDescription">Description</label>
-                        <textarea id="txaDescription" name="txaDescription"
-                                  class="form-control" [(ngModel)]="post.description" required></textarea>
+                        <textarea id="txaDescription" name="txaDescription" class="form-control"
+                                  [(ngModel)]="post.description"
+                                  #txaDescription="ngModel"
+                                  required></textarea>
+                    </div>
+
+                    <div [hidden]="txaDescription.valid || txaDescription.pristine" class="alert alert-danger">
+                        Description is required
                     </div>
 
                 </div>
@@ -52,13 +69,19 @@
                 <div class="col-md-12">
 
                     <div class="form-group">
-                        <label>Starting</label>
+                        <label>Starting date</label>
 
                         <div class="row">
                             <div class="col-xs-5 col-sm-5 col-md-4">
-                                <input type="date" id="datStarting" name="datStarting"
-                                       class="form-control" [(ngModel)]="post.startingDate" required>
+                                <input type="date" id="datStarting" name="datStarting" class="form-control"
+                                       [(ngModel)]="post.startingDate"
+                                       #startingDate="ngModel"
+                                       required>
                             </div>
+                        </div>
+
+                        <div [hidden]="startingDate.valid || startingDate.pristine" class="alert alert-danger">
+                            Starting date is required
                         </div>
 
                     </div>
@@ -74,11 +97,17 @@
 
                         <div class="row">
                             <div class="col-xs-5 col-sm-5 col-md-4">
-                                <input type="date" id="datEnding" name="datEnding"
-                                       class="form-control" [(ngModel)]="post.endingDate" required>
+                                <input type="date" id="datEnding" name="datEnding" class="form-control"
+                                       [(ngModel)]="post.endingDate"
+                                       #endingDate="ngModel"
+                                       required>
                             </div>
                         </div>
 
+                    </div>
+
+                    <div [hidden]="endingDate.valid || endingDate.pristine" class="alert alert-danger">
+                        Ending date is required
                     </div>
 
                 </div>
@@ -117,9 +146,10 @@
 
     </div>
 
-
-    <button type="submit" class="btn btn-default">Submit</button>
-
-    <button type="button" class="btn btn-default" (click)="onTest()"> Test</button>
+    <div class="row">
+        <div class="col-md-12 text-center" >
+            <button type="submit" class="btn btn-default btn-primary btn-lg" [disabled]=" ! postForm.form.valid">Submit</button>
+        </div>
+    </div>
 
 </form>
