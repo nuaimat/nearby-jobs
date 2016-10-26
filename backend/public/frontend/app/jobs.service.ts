@@ -22,17 +22,17 @@ export class JobsService {
             .catch(this.handleError);
     }
 
-    create(name: string): Promise<JobPost> {
+    create(post: JobPost): Promise<JobPost> {
 
-        let body = JSON.stringify({name: name})
-
+        let body = JSON.stringify(post);
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
 
-        return this.http.post(this.endpointUrl, {name}, options)
+        return this.http.post(this.endpointUrl, body, options)
             .toPromise()
             .then(this.extractData)
             .catch(this.handleError);
+
     }
 
     private extractData(res: Response) {

@@ -4,66 +4,28 @@ import {JobsService} from './jobs.service';
 import {marker} from "./marker";
 import {GeolocationService} from "./geolocation.service";
 
-
-
 @Component({
     selector: 'post-component',
     templateUrl: 'views/post-component.html',
     providers: [JobsService, GeolocationService]
     //styleUrls: ['map.component.css'],
 })
+
 export class PostComponent implements OnInit {
 
     constructor(private jobService: JobsService,  private geo: GeolocationService) {
     }
 
+    post = new JobPost();
+
     theMarker: marker = {
-        lat: -91.96061968803406,
-        lng: 41.00641495699017,
+        lat: 41.00641495699017,
+        lng: -91.96061968803406,
         draggable: true
     };
 
-
     // google maps zoom level
-    zoom: number = 18;
-
-    // initial center position for the map
-    lat: number = -91.96061968803406;
-    lng: number = 41.00641495699017;
-
-    setPosition(position){
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
-    }
-
-    post = new JobPost();
-
-    onSubmit() {
-
-        var prom = this.jobService.create('test');
-
-        console.log(prom);
-
-        return false;
-    }
-
-    onTest() {
-
-        var prom = this.jobService.getList();
-
-        console.log(prom);
-
-        return false;
-    }
-
-    markerDragEnd($event): void {
-        this.post.lat = $event.coords.lat;
-        this.post.lng = $event.coords.lng;
-
-        console.log($event,this.post);
-
-    }
-
+    zoom: number = 15;
 
     ngOnInit(): void {
 
@@ -79,5 +41,46 @@ export class PostComponent implements OnInit {
         );
 
     }
+
+    setPosition(position){
+
+        this.theMarker.lat = position.coords.latitude;
+        this.theMarker.lng = position.coords.longitude;
+
+        this.post.lat = position.coords.latitude;
+        this.post.lng = position.coords.longitude;
+
+    }
+
+
+
+    onSubmit() {
+
+        console.log(this.post);
+
+        var prom = this.jobService.create( this.post );
+
+        console.log(prom);
+
+        return false;
+    }
+
+    onTest() {
+
+        var prom = this.jobService.getList();
+
+        console.log(prom);
+
+        return false;
+    }
+
+    markerDragEnd(position): void {
+        this.post.lat = position.coords.lat;
+        this.post.lng = position.coords.lng;
+        console.log(this.post);
+    }
+
+
+
 
 }

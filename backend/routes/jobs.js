@@ -43,14 +43,19 @@ router.get('/my',auth, function(req, res) {
 // add new job
 router.post('/',auth,function(req, res) {
     console.log(req.body);
+
     let newJob = new Job({
         title:  req.body.title,
-        employer: "Mr. Robot",
-        location:   [parseFloat(req.body.lon), parseFloat(req.body.lat)],
+        description: req.body.description,
+        location:   [parseFloat(req.body.lng), parseFloat(req.body.lat)],
         active: true,
         employees: [],
-        category: req.body.category
+        category: req.body.category,
+        employer: "Mr. Robot",
+        start_datetime: req.body.startingDate,
+        end_datetime: req.body.endingDate
     });
+
     newJob.save((err) => {
         if (err) {
             var errMessage = '';

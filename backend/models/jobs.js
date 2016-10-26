@@ -5,16 +5,18 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var jobsSchema = new Schema({
+    created: { type: Date, default: Date.now },
+    updated: { type: Date, default: Date.now },
     title:  String,
+    description:  String,
+    category: {type: String, index: true},
     employer: String,
     location:   [Number, Number],
     active: {type: Boolean, index: true},
-    created: { type: Date, default: Date.now },
-    updated: { type: Date, default: Date.now },
-    employees: [String],
+    applicants: [String],
     assigned_to: {type: String,  default: null},
-    category: {type: String, index: true},
-    start_time: { type: Date}
+    start_datetime: { type: Date},
+    end_datetime: { type: Date},
 });
 
 jobsSchema.index({ location: "2d"});
