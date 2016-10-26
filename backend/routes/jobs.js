@@ -43,7 +43,7 @@ router.get('/my',auth, function(req, res) {
 // add new job
 router.post('/',auth,function(req, res) {
     console.log(req.body);
-
+    let userid = req.session.user;
     let newJob = new Job({
         title:  req.body.title,
         description: req.body.description,
@@ -51,7 +51,7 @@ router.post('/',auth,function(req, res) {
         active: true,
         applicants: [],
         category: req.body.category,
-        employer: "Mr. Robot",
+        employer: userid,
         start_datetime: req.body.startingDate,
         end_datetime: req.body.endingDate
     });

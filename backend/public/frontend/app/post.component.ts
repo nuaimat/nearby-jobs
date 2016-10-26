@@ -27,7 +27,7 @@ export class PostComponent implements OnInit {
     };
 
     // google maps zoom level
-    zoom: number = 15;
+    zoom: number = 18;
 
     ngOnInit(): void {
         this.jobCategories = this.jobService.getCategoriesList();
