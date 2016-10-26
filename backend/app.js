@@ -44,7 +44,7 @@ db.once('open', function() {
     employer: "Mr. Robot",
     location:   [-91.96160137653351, 41.005961558865245],
     active: true,
-    employees: [],
+    applicants: [],
    job_categories: "computer networks"
   });
 
