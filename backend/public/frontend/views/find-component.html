@@ -17,13 +17,16 @@
                         [latitude]="m.location[1]"
                         [longitude]="m.location[0]"
                         [label]="m.title"
+                        (markerClick)="registerWindowOpen(infowindow);"
                       >
 
-                    <sebm-google-map-info-window>
+                    <sebm-google-map-info-window #infowindow [disableAutoPan]="true">
                         <form method="post" enctype="application/x-www-form-urlencoded">
                             <strong>{{m.title}}</strong> <br/>
                             <div><strong>Category: </strong>{{m.category}}</div>
-                            <div><strong>Employer: </strong>{{m.employer}}</div> <br/>
+                            <div><strong>Employer: </strong>{{m.employer}}</div>
+                            <div><strong>Date: </strong>{{m.updated}}</div>
+                             <br/>
                             <input type="hidden" name="id" [value]="m._id" />
                             <input type="button" value="Apply" (click)="applyForJob(m._id)" />
                         </form>

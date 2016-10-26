@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Renderer} from '@angular/core';
 import {JobsService} from './jobs.service';
 import {GeolocationService} from "./geolocation.service";
 import {marker} from "./marker";
@@ -17,7 +17,10 @@ import {Observable} from "rxjs/Observable";
 })
 export class FindComponent implements OnInit  {
 
-    constructor(private jobService: JobsService, private geo: GeolocationService) {
+    constructor(
+        private jobService: JobsService, 
+        private geo: GeolocationService,
+        private renderer: Renderer) {
     }
 
     // google maps zoom level
@@ -69,19 +72,23 @@ export class FindComponent implements OnInit  {
         this.coords.next(new LatLon(position));
     }
 
-    onTest() {
-
-        var prom = this.jobService.getList();
-
-        console.log(prom);
-
-        return false;
-    }
 
     applyForJob(id: string, job: Job): boolean {
         console.log("Applying for " + id);
         this.jobService.applyForJob(id);
+
         return false;
+    }
+
+    infoWindow; 
+    registerWindowOpen(windowHandler: any){
+        if(this.infoWindow){
+            try {
+                this.infoWindow.close();
+            } catch (err){}
+            
+        }
+        this.infoWindow = windowHandler;
     }
 
 }
