@@ -1,10 +1,21 @@
 <h1>{{ title }}</h1>
-
-
-
 <sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDoubleClickZoom]="disableDoubleClickZoom"
                  [scrollwheel]="scrollwheel" [zoomControl]="zoomControl"
-                 (mapClick)="showAddJobDialog($event)">
-    <sebm-google-map-marker [latitude]="lat" [longitude]="lng" title="Test title"></sebm-google-map-marker>
+                 (mapClick)="showAddJobDialog($event)"
+                 (centerChange)="refreshMarkers($event)"
+                    >
+    <sebm-google-map-marker [latitude]="lat" [longitude]="lng" title="Central point">
+        <sebm-google-map-info-window [disableAutoPan]="true">
+            Hi, this is the content of the <strong>info window</strong>
+        </sebm-google-map-info-window>
+    </sebm-google-map-marker>
+    <sebm-google-map-marker  *ngFor="let job of jobs | async"
+                             [latitude]="job.location[0]"
+                             [longitude]="job.location[1]"
+                             [title]="job.title">
+    </sebm-google-map-marker>
 </sebm-google-map>
+
+<div *ngFor="let job of jobs | async" id="{{job.title}}">{{job.title}} || {{job.location[0]}} || {{job.location[1]}} || {{job.title}}</div>
+
 

@@ -5,6 +5,8 @@ import {RouterModule}   from '@angular/router';
 
 import {AppComponent}       from './app.component';
 import {MapComponent}       from './map.component';
+import { HttpModule } from '@angular/http';
+
 
 import { AgmCoreModule } from 'angular2-google-maps/core';
 
@@ -25,7 +27,8 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
                 redirectTo: '/map',
                 pathMatch: 'full'
             },
-        ])
+        ]),
+        HttpModule
     ],
     providers: [],
     declarations: [AppComponent,MapComponent],
