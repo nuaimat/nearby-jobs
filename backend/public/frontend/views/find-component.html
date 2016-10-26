@@ -3,20 +3,20 @@
     <div class="col-md-12">
 
         <div class="form-group">
-            <label>Location</label>
+            <label>Location</label> <span style="color: red">{{message}}</span>
             <sebm-google-map
                     [latitude]="lat"
                     [longitude]="lng"
                     [zoom]="zoom"
                     [disableDefaultUI]="false"
-                    [zoomControl]="false"
+                    [zoomControl]="true"
                     (centerChange)="refreshJobs($event)">
 
                 <sebm-google-map-marker
-                        *ngFor="let m of jobs | async; let i = index"
+                        *ngFor="let m of jobs | async | matchfilter:appliedIds; let i = index"
                         [latitude]="m.location[1]"
                         [longitude]="m.location[0]"
-                        [label]="m.title"
+                        [label]="m.category"
                         (markerClick)="registerWindowOpen(infowindow);"
                       >
 
@@ -25,10 +25,15 @@
                             <strong>{{m.title}}</strong> <br/>
                             <div><strong>Category: </strong>{{m.category}}</div>
                             <div><strong>Employer: </strong>{{m.employer}}</div>
-                            <div><strong>Date: </strong>{{m.updated}}</div>
-                             <br/>
+                            <div><strong>Start Date: </strong>{{m.start_datetime | date:"MM/dd/yy"}}</div>
+                            <div><strong>End Date: </strong>{{m.end_datetime | date:"MM/dd/yy"}}</div>
+                            <div><strong>Description: </strong>{{m.description}}</div>
+                            <br/>
                             <input type="hidden" name="id" [value]="m._id" />
-                            <input type="button" value="Apply" (click)="applyForJob(m._id)" />
+                            <div style="display: table;margin: 0 auto;">
+                                <input type="button" value="Apply" (click)="applyForJob(m._id)"  />
+                            </div>
+                            
                         </form>
                     </sebm-google-map-info-window>
 

@@ -4,7 +4,7 @@
 
 export class Job {
     constructor(
-        public id: number,
+        public _id: string,
         public title: string,
         public employer: string,
         public location: Array<number>,

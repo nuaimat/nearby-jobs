@@ -8,6 +8,7 @@ import {AppComponent}       from './app.component';
 import {PostComponent}  from './post.component';
 import {FindComponent}      from "./find.component";
 import {AppliedComponent} from './applied.component';
+import {MatchFilterPipe} from './match-filter.pipe';
 
 
 import {AgmCoreModule} from 'angular2-google-maps/core';
@@ -41,7 +42,7 @@ import {AgmCoreModule} from 'angular2-google-maps/core';
         ])
     ],
     providers: [],
-    declarations: [AppComponent, PostComponent, FindComponent, AppliedComponent],
+    declarations: [AppComponent, PostComponent, FindComponent, AppliedComponent, MatchFilterPipe],
     bootstrap: [AppComponent]
 })
 

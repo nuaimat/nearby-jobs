@@ -61,6 +61,7 @@ export class PostComponent implements OnInit {
         console.log(this.post);
     }
 
+    message: string;
     onSubmit() {
 
         this.active = false;
@@ -70,6 +71,7 @@ export class PostComponent implements OnInit {
         prom.then(data => {
             console.log(data)
             this.post = new JobPost();
+            this.message = "Job added successfully";
         });
 
         setTimeout(() => this.active = true, 20);

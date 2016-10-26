@@ -8,19 +8,16 @@ import {LatLon} from "./LatLon";
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 
-
-
 @Component({
     selector: 'find-component',
     templateUrl: 'views/find-component.html',
-    providers: [JobsService,GeolocationService]
+    providers: [JobsService, GeolocationService]
 })
 export class FindComponent implements OnInit  {
 
     constructor(
         private jobService: JobsService, 
-        private geo: GeolocationService,
-        private renderer: Renderer) {
+        private geo: GeolocationService) {
     }
 
     // google maps zoom level
@@ -29,7 +26,8 @@ export class FindComponent implements OnInit  {
     // initial center position for the map
     lat: number = -91.96061968803406;
     lng: number = 41.00641495699017;
-
+    appliedIds : string[] = [];
+    message: string;
 
     jobs: Observable<Job[]>;
     coords = new Subject<LatLon>();
@@ -73,14 +71,20 @@ export class FindComponent implements OnInit  {
     }
 
 
+
     applyForJob(id: string, job: Job): boolean {
         console.log("Applying for " + id);
         this.jobService.applyForJob(id);
-
+        this.appliedIds.push(id);
+        this.message = "Applied";
+        setTimeout(()=>{this.message = ""}, 2000);
         return false;
     }
 
+    
+
     infoWindow; 
+
     registerWindowOpen(windowHandler: any){
         if(this.infoWindow){
             try {
