@@ -6,6 +6,7 @@ import {HttpModule}     from '@angular/http';
 
 import {AppComponent}       from './app.component';
 import {PostAJobComponent}       from './post-a-job.component';
+import {FindComponent}      from "./find.component";
 import {MapComponent}       from './map.component';
 import { HttpModule } from '@angular/http';
 
@@ -38,7 +39,7 @@ import {AgmCoreModule} from 'angular2-google-maps/core';
         HttpModule
     ],
     providers: [],
-    declarations: [AppComponent, MapComponent, PostAJobComponent],
+    declarations: [AppComponent, MapComponent, PostAJobComponent, FindComponent],
     bootstrap: [AppComponent]
 })
 
