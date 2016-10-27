@@ -18,6 +18,8 @@
                         [longitude]="m.location[0]"
                         [label]="m.category"
                         (markerClick)="registerWindowOpen(infowindow);"
+                        iconUrl="/images/map-marker-2-xxl.png"
+
                       >
 
                     <sebm-google-map-info-window #infowindow [disableAutoPan]="true">

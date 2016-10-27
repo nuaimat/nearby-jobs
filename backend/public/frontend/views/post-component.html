@@ -130,7 +130,9 @@
                             <sebm-google-map-marker [latitude]="theMarker.lat"
                                                     [longitude]="theMarker.lng"
                                                     [markerDraggable]="theMarker.draggable"
-                                                    (dragEnd)="markerDragEnd($event)">
+                                                    (dragEnd)="markerDragEnd($event)"
+                                                    iconUrl="/images/map-marker-2-xxl.png"
+                                                    >
                             </sebm-google-map-marker>
 
                         </sebm-google-map>

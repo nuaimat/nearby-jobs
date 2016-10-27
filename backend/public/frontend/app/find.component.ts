@@ -1,7 +1,6 @@
 import {Component, OnInit, Renderer} from '@angular/core';
 import {JobsService} from './jobs.service';
 import {GeolocationService} from "./geolocation.service";
-import {marker} from "./marker";
 import './rxjs-operators';
 import {Job} from "./job";
 import {LatLon} from "./LatLon";
