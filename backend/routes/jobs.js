@@ -121,13 +121,18 @@ router.post('/',auth,function(req, res) {
 // get 10 listings around a specific area
 //url: jobs/around?lat=41.0060455&lon=-91.9610144&category=*
 router.get('/around', function(req, res) {
+    let userid = req.session.user;
+    let query = {active: true, employer: {$ne: userid}};
+    if(!userid){
+        query = {active: true};
+    }
     let currentLocation = [parseFloat(req.query.lon), parseFloat(req.query.lat)];
     if(isNaN(currentLocation[0]) || isNaN(currentLocation[1])){
         throw "Wrong coords";
     }
     console.log("currentLocation: " + currentLocation);
 
-    Job.find({active: true},{__v: false})
+    Job.find(query,{__v: false})
         .where('location').near({ center: currentLocation})
         .sort({location: -1, updated: -1})
         .limit(10)
