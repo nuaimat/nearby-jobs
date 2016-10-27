@@ -24,16 +24,14 @@ router.get('/', function(req, res) {
 router.get('/my',auth, function(req, res) {
     let userid = req.session.user;
     Job.find(
-            {active: true, applicants: userid, assigned: null, start_datetime: {$gt: new Date() } },
+            {active: true, applicants: userid, assigned_to: null, start_datetime: {$gt: new Date() } },
             {__v: false, applicants: false}
         )
         .sort({start_datetime: -1})
         .limit(100)
         .exec(function(err, jobs) {
             if (err) throw err;
-            //console.log(jobs);
-            //let assigned = jobs.filter((j) => j.assigned_to == userid);
-            //let pending = jobs.filter((j) => j.assigned_to == "" ||  j.assigned_to == null);
+            
             if(jobs.length > 0) {
                 res.status(200).json({data: jobs, count: (jobs.length)});
             } else {
@@ -48,16 +46,14 @@ router.get('/my',auth, function(req, res) {
 router.get('/my/posted',auth, function(req, res) {
     let userid = req.session.user;
     Job.find(
-            {active: true, employer: userid, assigned: null, start_datetime: {$gt: new Date() } },
+            {active: true, employer: userid, start_datetime: {$gt: new Date() } },
             {__v: false}
         )
         .sort({start_datetime: -1})
         .limit(100)
         .exec(function(err, jobs) {
             if (err) throw err;
-            //console.log(jobs);
-            //let assigned = jobs.filter((j) => j.assigned_to == userid);
-            //let pending = jobs.filter((j) => j.assigned_to == "" ||  j.assigned_to == null);
+           
             if(jobs.length > 0) {
                 res.status(200).json({data: jobs, count: (jobs.length)});
             } else {
@@ -122,10 +118,15 @@ router.post('/',auth,function(req, res) {
 //url: jobs/around?lat=41.0060455&lon=-91.9610144&category=*
 router.get('/around', function(req, res) {
     let userid = req.session.user;
+    console.log("> /around userid: " + userid);
     let query = {active: true, employer: {$ne: userid}};
     if(!userid){
         query = {active: true};
     }
+
+    query.assigned_to = null;
+    console.log(JSON.stringify(query));
+
     let currentLocation = [parseFloat(req.query.lon), parseFloat(req.query.lat)];
     if(isNaN(currentLocation[0]) || isNaN(currentLocation[1])){
         throw "Wrong coords";
