@@ -96,6 +96,7 @@ app.use((req, res, next) => {
 
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 
+app.get('/', (req, res) => { res.redirect('/frontend'); });
 app.get('/frontend/find', (req, res) => { res.redirect('/frontend'); });
 app.get('/frontend/applied', (req, res) => { res.redirect('/frontend'); });
 app.get('/frontend/post', (req, res) => { res.redirect('/frontend'); });
