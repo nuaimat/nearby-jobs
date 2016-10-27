@@ -10,6 +10,7 @@ export class LoginService {
 
     private headers = new Headers();
     private currentUser = new Subject<string>();
+    private endpointUrl = "http://localhost:8080/users";
 
     /**
     * Observable string streams
@@ -21,14 +22,22 @@ export class LoginService {
 
 
     announceLogIn(user: string) : Observable<string>{
+
         this.currentUser.next(user);
         this.logInAnnouncement$.subscribe(email=>{
             console.log(email + "logged in");
         });
+        // for testing purpose only, password is same as user for now
+        // needs to be changed in the actual prod env.
+        this.http.post(this.endpointUrl + "/login", {username: user, password: user})
+            .toPromise();
+
         return this.logInAnnouncement$;
     }
 
     logout() {
         this.currentUser.next(null);
+        this.http.get(this.endpointUrl+ "/logout")
+            .toPromise();
     }
 }
