@@ -8,6 +8,7 @@ import {LatLon} from "./LatLon";
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 
+
 @Component({
     selector: 'find-component',
     templateUrl: 'views/find-component.html',
@@ -53,6 +54,7 @@ export class FindComponent implements OnInit  {
                 console.log(error);
                 return Observable.of<Job[]>([]);
             })
+
         this.geo.getLocation().subscribe(
             function(position) {
                 self.setPosition(position);
@@ -63,6 +65,8 @@ export class FindComponent implements OnInit  {
                 console.log(error);
             }
         );
+
+        
 
     }
 

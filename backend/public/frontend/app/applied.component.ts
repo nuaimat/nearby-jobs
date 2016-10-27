@@ -34,7 +34,7 @@ export class AppliedComponent implements OnInit {
     }
     ngOnInit(): void {
         var self = this;
-        this.refreshDataSources();
+        this.refreshDataSources();            
     }
 
     getJobStatus(j:Job): string{

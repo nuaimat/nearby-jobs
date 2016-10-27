@@ -15,6 +15,8 @@ import {MatchFilterPipe} from './match-filter.pipe';
 
 
 import {AgmCoreModule} from 'angular2-google-maps/core';
+import { LoginService } from './login.service';
+
 
 @NgModule({
     imports: [
@@ -52,7 +54,7 @@ import {AgmCoreModule} from 'angular2-google-maps/core';
             },
         ])
     ],
-    providers: [],
+    providers: [LoginService],
     declarations: [
         AppComponent, 
         PostComponent, 

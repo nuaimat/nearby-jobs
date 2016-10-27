@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import { LoginService } from './login.service';
 
 @Component({
     selector: 'login-component',
@@ -6,7 +7,8 @@ import {Component} from '@angular/core';
 })
 
 export class LoginComponent {
-
+    constructor(private loginService: LoginService) {
+    }
     active = true;
 
     login = {
@@ -17,18 +19,7 @@ export class LoginComponent {
     onSubmit() {
 
         this.active = false;
-
-        // var prom = this.jobService.create(this.post);
-
-        /*
-         prom.then(data => {
-         console.log(data)
-         this.post = new JobPost();
-         });
-         */
-
-        setTimeout(() => this.active = true, 20);
-
+        this.loginService.announceLogIn(this.login.userName);
 
     }
 
