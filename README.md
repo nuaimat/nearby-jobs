@@ -1,5 +1,14 @@
-# nearby-jobs
-a final project for Modern Web Application App, built using expressjs, mongodb and angularjs 2
+# Nearby Jobs
+a final project for Modern Web Application App, built using expressjs, mongodb and angularjs 2, the goal is to 
+* For Workers
+  * Be able to find jobs posted near by a certain location using map view
+  * See More details about those jobs, employer, date .. etc
+  * Be able to apply for those jobs 
+* For Employers
+  * Be able to post jobs at a certain location, specify category and description, start/end date
+  * View list of employees who applied for it, and assign it to one of them.
+  
+  
 
 #**Running the project**
 after checking this code out 
