@@ -26,4 +26,4 @@ second terminal, cd inside backend/public/frontend then
 
 1. `npm starts`
 
-now open [http://localhost:8080/frontend/]
+now open [http://localhost:8080/frontend/](http://localhost:8080/frontend/)
