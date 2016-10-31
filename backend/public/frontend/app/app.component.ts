@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { LoginService } from './login.service';
 
 
@@ -6,7 +6,7 @@ import { LoginService } from './login.service';
     selector: 'app-component',
     templateUrl: 'views/app-component.html',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     title = 'Job Posting';
     currentUser = null;
 
@@ -16,4 +16,11 @@ export class AppComponent {
           this.currentUser = user;
       });
   }
+
+  ngOnInit(): void {
+        var self = this;
+        if(!this.loginService.isLoggedIn()){
+            this.loginService.logout();
+        }
+    }
 }

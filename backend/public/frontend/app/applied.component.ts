@@ -5,6 +5,10 @@ import {Job} from "./job";
 import {LatLon} from "./LatLon";
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
+import { LoginService } from './login.service';
+import {Router} from '@angular/router'
+
+
 
 @Component({
     selector: 'applied-component',
@@ -13,7 +17,7 @@ import {Observable} from "rxjs/Observable";
 })
 export class AppliedComponent implements OnInit {
 
-    constructor(private jobService: JobsService) {
+    constructor(private jobService: JobsService, private loginService: LoginService, private router: Router) {
     }
 
     appliedJobs: Observable<Job[]>;
@@ -34,6 +38,12 @@ export class AppliedComponent implements OnInit {
     }
     ngOnInit(): void {
         var self = this;
+
+        if( !this.loginService.isLoggedIn() ) {
+            this.router.navigate(['/login']);
+            return;
+        }
+
         this.refreshDataSources();            
     }
 

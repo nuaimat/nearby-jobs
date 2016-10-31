@@ -24,7 +24,7 @@ router.get('/', function(req, res) {
 router.get('/my',auth, function(req, res) {
     let userid = req.session.user;
     Job.find(
-            {active: true, applicants: userid, assigned_to: null, start_datetime: {$gt: new Date() } },
+            {active: true, applicants: userid, $or:[ {assigned_to: null}, {assigned_to: userid} ], start_datetime: {$gt: new Date() } },
             {__v: false, applicants: false}
         )
         .sort({start_datetime: -1})

@@ -12,7 +12,7 @@
                             <div><strong>Description: </strong>{{m.description}}</div>
                             <div *ngIf="m.assigned_to"><strong>Assignee: </strong><span style="color: green">{{m.assigned_to}}</span></div>
                             <div><strong>Status: </strong>{{getJobStatus(m)}}</div>
-                            <div><button class="btn btn-default" (click)="cancelJobApplication(m._id)" >Cancel Applcation</button></div>
+                            <div *ngIf="getJobStatus(m) == 'pending' "><button class="btn btn-default" (click)="cancelJobApplication(m._id)" >Cancel Applcation</button></div>
                             
             </li>
             <li *ngIf="(appliedJobs | async | matchfilter:cancelledIds)?.length==0">No Job applications yet</li>

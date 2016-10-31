@@ -3,6 +3,8 @@ import {JobPost} from './job-post';
 import {JobsService} from './jobs.service';
 import {marker} from "./marker";
 import {GeolocationService} from "./geolocation.service";
+import {LoginService} from './login.service';
+import {Router} from '@angular/router'
 
 @Component({
     selector: 'post-component',
@@ -13,7 +15,7 @@ import {GeolocationService} from "./geolocation.service";
 
 export class PostComponent implements OnInit {
 
-    constructor(private jobService: JobsService, private geo: GeolocationService) {
+    constructor(private jobService: JobsService, private geo: GeolocationService, private loginService: LoginService, private router: Router) {
     }
 
     active = true;
@@ -30,6 +32,10 @@ export class PostComponent implements OnInit {
     zoom: number = 18;
 
     ngOnInit(): void {
+        if( !this.loginService.isLoggedIn() ) {
+            this.router.navigate(['/login']);
+            return;
+        }
         this.jobCategories = this.jobService.getCategoriesList();
 
         var self = this;
