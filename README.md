@@ -1,7 +1,7 @@
 # nearby-jobs
 a final project for Modern Web Application App, built using expressjs, mongodb and angularjs 2
 
-*Running the project*
+#**Running the project**
 after checking this code out 
 1. get sure you have a running instance of mongodb
 2. change backend/config_development.json settings 
